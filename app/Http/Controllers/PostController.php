@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Facades\PostFacade;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Resources\CategoryResource;
 use App\Http\Resources\PostResource;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -28,7 +30,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $categories = CategoryResource::collection(Category::orderBy('name','desc')->get());
+        return view('Posts.create',['categories'=>$categories]);
     }
 
     /**

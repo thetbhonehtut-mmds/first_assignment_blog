@@ -24,11 +24,14 @@
 
 <body>
     <div>
-        <div id="navbar" style="display:flex">
+        <div id="navbar" class="flex-box">
             <div style="flex-grow:1;height:auto;padding:10px"><span>Sample Blog Post</span></div>
+            @auth
+            <button class="header">Logout</button>
+            @else
             <button class="header">Login</button>
             <button class="header">Register</button>
-
+            @endauth
         </div>
         @yield('content')
     </div>

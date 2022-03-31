@@ -19,3 +19,5 @@ Route::get('/', [PostController::class,'index']);
 Route::apiResources([
     'posts' => PostController::class,
 ]);
+
+Route::get('/post/create',[PostController::class,'create']);

@@ -1,15 +1,70 @@
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 
+button{
+    font:inherit;
+    border: none;
+    padding:1rem;
+    width: 7rem;
+    min-width: 7rem;
+    cursor: pointer;
+}
+
 button.header{
     height: 100%;
-    width: 7rem;
     background:none;
-    border:none;
-    padding:1rem;
-    font: inherit;
-    cursor: pointer;
+}
+
+
+button.submit,button.cancel{
+    height: 50px;
+    border-radius: 5px;
+    color: white;
+    width: auto;
+}
+
+button.submit{
+    background-color: rgb(71, 71, 230) ;
+}
+
+button.cancel{
+    background-color: rgb(146, 146, 157) ;
+
 }
 
 div{
     padding:10px;
+}
+
+.flex-box{
+    display:flex;
+    max-width: 100%;
+}
+
+input,textarea{
+    border-radius: 5px;
+    border:2px solid;
+    width: 100%;
+    max-width: 100%;
+    margin: 10px;
+}
+
+textarea{
+    resize: none;
+}
+
+input[type="text"], textarea{
+    padding: 20px;
+    font-size: large;
+}
+
+input::placeholder,textarea::placeholder{
+    font-size: large;
+    color: grey;
+}
+
+select{
+    padding:1rem;
+    border-radius: 5px;
+    margin: 10px;
+    width: 50%;
 }
