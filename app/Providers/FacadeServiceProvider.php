@@ -15,7 +15,7 @@ class FacadeServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        App::bind('post',function(){
+        App::bind(PostService::class,function(){
             return PostService::class;
         });
     }

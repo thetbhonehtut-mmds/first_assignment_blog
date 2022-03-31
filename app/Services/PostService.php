@@ -2,13 +2,19 @@
 
 namespace App\Services;
 
+use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostService{
 
-    public function store(Request $request){
-        $post = new Post();
+    public function store(StorePostRequest $request){
+        $post = Post::create($request);
+        
+        return $post;
+    }
+
+    public function handleReaction(){
         
     }
 }

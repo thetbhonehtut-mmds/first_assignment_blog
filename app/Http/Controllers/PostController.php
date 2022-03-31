@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Services\PostService;
+use App\Facades\PostFacade;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Resources\PostResource;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -15,7 +17,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = PostResource::collection(Post::orderBy('created_at', 'desc')->paginate());
+        return view('Posts.index', ['posts' => $posts]);
     }
 
     /**
@@ -34,9 +37,12 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        PostService::store($request);
+
+        $post = PostFacade::store($request->validated());
+
+        return new PostResource($post);
     }
 
     /**
@@ -45,9 +51,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        return view('Posts.show',['post'=>$post]);
     }
 
     /**
@@ -82,5 +88,9 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function handleReaction(Post $post){
+        Post::find($post->id);
     }
 }
