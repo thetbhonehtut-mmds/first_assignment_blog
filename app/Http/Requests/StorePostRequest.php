@@ -14,7 +14,7 @@ class StorePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,7 +27,7 @@ class StorePostRequest extends FormRequest
         return [
             'post_title' => "required",
             'post_detail' => "required",
-            // 'is_published' => "required:boolean",
+            'is_published' => "required:boolean",
             'category_id' => "required",
         ];
     }
@@ -35,8 +35,9 @@ class StorePostRequest extends FormRequest
     public function validationData()
     {
         $this->merge([
-            'user_id' => 1,
-            'like_count' => 0
+            'user_id' => Auth::user()->id,
         ]);
+
+        return $this->all();
     }
 }

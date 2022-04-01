@@ -20,17 +20,31 @@
     </style>
 
     <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+
 </head>
 
 <body>
     <div>
         <div id="navbar" class="flex-box">
-            <div style="flex-grow:1;height:auto;padding:10px"><span>Sample Blog Post</span></div>
+            <div class="nav-title flex-grow"><span><a href="/" style="">Sample Blog Post</a></span></div>
             @auth
-            <button class="header">Logout</button>
+            <h4>
+                Welcome, {{Auth::user()->name}}
+            </h4>
+            <form method="POST" action="/logout">
+                @csrf
+                <button class="header">Logout</button>
+            </form>
             @else
-            <button class="header">Login</button>
-            <button class="header">Register</button>
+            <form action="/login">
+                <button class="header">Login</button>
+            </form>
+            <form action="/register">
+
+                <button class="header">Register</button>
+            </form>
             @endauth
         </div>
         @yield('content')

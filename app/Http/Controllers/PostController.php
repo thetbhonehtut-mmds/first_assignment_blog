@@ -6,9 +6,13 @@ use App\Facades\PostFacade;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\PostResource;
+use App\Http\Resources\ReactionResource;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Reaction;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -20,7 +24,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = PostResource::collection(Post::orderBy('created_at', 'desc')->paginate());
-        return view('Posts.index', ['posts' => $posts]);
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -30,8 +34,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = CategoryResource::collection(Category::orderBy('name','desc')->get());
-        return view('Posts.create',['categories'=>$categories]);
+        $categories = CategoryResource::collection(Category::orderBy('name', 'desc')->get());
+        return view('posts.create', compact('categories'));
     }
 
     /**
@@ -42,10 +46,9 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
+        $post = PostFacade::store($request);
 
-        $post = PostFacade::store($request->validated());
-
-        return new PostResource($post);
+        return redirect("/posts/$post->id");
     }
 
     /**
@@ -56,7 +59,21 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('Posts.show',['post'=>$post]);
+
+        if (!Auth::user()) {
+            if (!$post->is_published) {
+                return redirect('/');
+            } else {
+                $reaction = new ReactionResource(Reaction::where('post_id', $post->id)->get());
+            }
+        } else {
+            if (!$post->is_published and $post->user_id != Auth::user()->id) {
+                return redirect('/');
+            } else {
+                $reaction = new ReactionResource(Reaction::where('post_id', $post->id)->where('user_id', Auth::user()->id)->get());
+            }
+        }
+        return view('posts.show', compact('post', 'reaction'));
     }
 
     /**
@@ -93,7 +110,21 @@ class PostController extends Controller
         //
     }
 
-    public function handleReaction(Post $post){
-        Post::find($post->id);
+    public function handleReaction(Post $post, User $user)
+    {
+
+        $post_id = $post->id;
+        $user_id = Auth::user()->id;
+        $like_count = $post->like_count;
+
+        $reaction = Reaction::where('post_id', $post_id)->where('user_id', $user_id)->delete();
+        if ($reaction == 0) {
+            $reaction = new ReactionResource(Reaction::firstOrCreate(['post_id' => $post_id, 'user_id' => $user_id]));
+            $post->update(['like_count' => $like_count += 1]);
+        } else {
+            $post->update(['like_count' => $like_count -= 1]);
+        }
+
+        return redirect("posts/$post_id");
     }
 }

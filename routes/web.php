@@ -15,9 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PostController::class,'index']);
+Route::resource('posts', PostController::class);
+Route::post('posts/{post}/react',[PostController::class,'handleReaction']);
+Route::put('posts/{post}/react',[PostController::class,'handleReaction']);
 
-Route::apiResources([
-    'posts' => PostController::class,
-]);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-Route::get('/post/create',[PostController::class,'create']);
+require __DIR__.'/auth.php';

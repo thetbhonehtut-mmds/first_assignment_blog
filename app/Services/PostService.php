@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class PostService{
 
     public function store(StorePostRequest $request){
-        $post = Post::create($request);
+        $post = Post::create($request->all());
         
         return $post;
     }
