@@ -1,0 +1,115 @@
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+
+button {
+    font: inherit;
+    border: none;
+    padding: 1rem;
+    width: 7rem;
+    min-width: 7rem;
+    cursor: pointer;
+    margin:0rem 1rem 0rem 1rem;
+}
+
+button.header {
+    height: 100%;
+    background: none;
+}
+
+p {
+    font-size: large;
+
+    &.index {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    &.show {
+        word-break: break-all;
+        border: 2px solid;
+        border-radius: 5px;
+        padding: 20px;
+        min-height: 300px;
+        margin-right: 50px;
+    }
+}
+
+button.submit,
+button.cancel {
+    height: 50px;
+    border-radius: 5px;
+    color: white;
+    width: auto;
+}
+
+button.submit {
+    background-color: rgb(71, 71, 230);
+}
+
+button.cancel {
+    background-color: rgb(146, 146, 157);
+}
+
+div {
+    &.nav-title {
+        height: auto;
+        padding: 10px;
+    }
+    &.flex-grow {
+        flex-grow: 1;
+    }
+    &.reaction-box{
+        justify-content: center;
+        align-items: center;
+        vertical-align: middle;
+    }
+}
+
+a {
+    text-decoration: none;
+}
+
+a:link,
+a:visited,
+a:active {
+    text-decoration: none;
+    color: black;
+}
+
+.flex-box {
+    display: flex;
+    max-width: 100%;
+}
+
+input,
+textarea {
+    border-radius: 5px;
+    border: 2px solid;
+    width: 100%;
+    max-width: 100%;
+    margin: 10px;
+}
+
+textarea {
+    resize: none;
+}
+
+input[type="text"],
+textarea {
+    padding: 20px;
+    font-size: large;
+}
+
+input::placeholder,
+textarea::placeholder {
+    font-size: large;
+    color: grey;
+}
+
+select {
+    padding: 1rem;
+    border-radius: 5px;
+    margin: 10px;
+    border: 2px solid;
+    width: 50%;
+    font-size: medium;
+}

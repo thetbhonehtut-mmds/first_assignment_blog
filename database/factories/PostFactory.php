@@ -18,13 +18,15 @@ class PostFactory extends Factory
      */
     public function definition()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'name' => $this->faker->name(),
+            'email' => $this->faker->email(),
+        ]);
         $category = Category::factory()->create();
         return [
-            'author'=>$this->faker->name,
             'post_title'=>$this->faker->sentence(),
-            'post_detail'=>$this->faker->paragraph(),
-            'post_state' => $this->faker->boolean()==0?'FALSE':'TRUE',
+            'post_detail'=>$this->faker->paragraph(7),
+            'is_published' => $this->faker->boolean(),
             'category_id' => $category->id,
             'user_id' => $user->id,
         ];

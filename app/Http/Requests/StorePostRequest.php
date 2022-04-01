@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StorePostRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class StorePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,19 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'post_title' => "required",
+            'post_detail' => "required",
+            'is_published' => "required:boolean",
+            'category_id' => "required",
         ];
+    }
+
+    public function validationData()
+    {
+        $this->merge([
+            'user_id' => Auth::user()->id,
+        ]);
+
+        return $this->all();
     }
 }
