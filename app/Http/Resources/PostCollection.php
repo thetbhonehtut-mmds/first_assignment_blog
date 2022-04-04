@@ -14,8 +14,8 @@ class PostCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return [
-            'test' => 1,
-        ];
+        // dd($this->collection);
+        return PostResource::collection($this->collection);
+        // return parent::toArray($request);
     }
 }

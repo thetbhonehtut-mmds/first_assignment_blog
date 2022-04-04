@@ -1,18 +1,32 @@
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
-
+$nav_bar_height : 90px;
 button {
     font: inherit;
     border: none;
     padding: 1rem;
-    width: 7rem;
+    width: auto;
     min-width: 7rem;
     cursor: pointer;
-    margin:0rem 1rem 0rem 1rem;
-}
-
-button.header {
-    height: 100%;
-    background: none;
+    margin: 0rem 1rem 0rem 1rem;
+    &.header{
+        height: 100%;
+        background: none;
+    }
+    &.submit,&.cancel,&.create{
+        height: 50px;
+        border-radius: 5px;
+        color: white;
+        width: auto;
+    }
+    &.submit,&.create{
+        background-color: rgb(71, 71, 230);
+    }
+    &.cancel{
+        background-color: rgb(146, 146, 157);
+    }
+    &.create{
+        margin-bottom:10px;
+    }
 }
 
 p {
@@ -33,34 +47,47 @@ p {
     }
 }
 
-button.submit,
-button.cancel {
-    height: 50px;
-    border-radius: 5px;
-    color: white;
-    width: auto;
-}
-
-button.submit {
-    background-color: rgb(71, 71, 230);
-}
-
-button.cancel {
-    background-color: rgb(146, 146, 157);
-}
-
 div {
     &.nav-title {
         height: auto;
         padding: 10px;
+        width:20%;
     }
     &.flex-grow {
         flex-grow: 1;
     }
-    &.reaction-box{
+    &.config {
+        height: auto;
+        padding: 10px;
+        display:flex;
+    }
+    &.reaction-box {
         justify-content: center;
         align-items: center;
         vertical-align: middle;
+    }
+    &.post{
+        border:1px solid black;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        padding:20px;
+    }
+    &.flex-box {
+        display: flex;
+        max-width: 100%;
+    }
+    &.nav-bar{
+        background-color: blanchedalmond;
+        margin-bottom: 10px;
+        width: 100%;
+        position: fixed;
+        height: $nav_bar_height;
+        z-index: 9;
+    }
+    &.content{
+        position: absolute;
+        margin-top: calc($nav_bar_height + 10px);
+        width: 100%;
     }
 }
 
@@ -75,10 +102,10 @@ a:active {
     color: black;
 }
 
-.flex-box {
-    display: flex;
-    max-width: 100%;
+body{
+    margin:0px !important
 }
+
 
 input,
 textarea {
@@ -97,6 +124,9 @@ input[type="text"],
 textarea {
     padding: 20px;
     font-size: large;
+    &.search{
+        width:90%
+    }
 }
 
 input::placeholder,

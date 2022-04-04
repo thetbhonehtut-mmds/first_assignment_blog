@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostEvent;
 use App\Facades\PostFacade;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\PostCollection;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\ReactionResource;
 use App\Models\Category;
@@ -23,7 +25,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = PostResource::collection(Post::orderBy('created_at', 'desc')->paginate());
+        // dd(Post::orderBy('created_at', 'desc')->get());
+        // $posts = new PostCollection(Post::orderBy('created_at', 'desc')->get());
+        $posts = PostResource::collection(Post::orderBy('created_at', 'desc')->with('reactions')->paginate());
+
+        // $posts = new PostCollection(Post::orderBy('created_at', 'desc')->paginate());
         return view('posts.index', compact('posts'));
     }
 
@@ -34,8 +40,12 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = CategoryResource::collection(Category::orderBy('name', 'desc')->get());
-        return view('posts.create', compact('categories'));
+        if (!Auth::user()) {
+            return redirect('/login');
+        } else {
+            $categories = CategoryResource::collection(Category::orderBy('name', 'desc')->get());
+            return view('posts.create', compact('categories'));
+        }
     }
 
     /**
@@ -121,10 +131,19 @@ class PostController extends Controller
         if ($reaction == 0) {
             $reaction = new ReactionResource(Reaction::firstOrCreate(['post_id' => $post_id, 'user_id' => $user_id]));
             $post->update(['like_count' => $like_count += 1]);
+
+            //event fire here
+            PostEvent::dispatch($post);
         } else {
             $post->update(['like_count' => $like_count -= 1]);
         }
 
         return redirect("posts/$post_id");
+    }
+
+    public function testReaction(Post $post)
+    {
+        // dd($post->id);
+        PostEvent::dispatch($post);
     }
 }

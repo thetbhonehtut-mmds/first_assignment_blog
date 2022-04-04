@@ -4,7 +4,7 @@
     <form method="POST" action="/posts">
         @csrf
         <div class="flex-box">
-            <div style="flex-grow: 1;">
+            <div style="float: left;flex-grow:1">
                 <select id="categories" name="category_id">
                     <option value="" disabled selected hidden>Select your option</option>
                     @foreach($categories as $category){
@@ -14,12 +14,18 @@
 
                 </select>
             </div>
-            <div style="width:25%">
-                <select id="audience" name="is_published">
-                    <option value=1>Public</option>
-                    <option value=0>Private</option>
 
-                </select>
+            <div style="float:right;flex-grow: 1;">
+                <div style="float:right;width:50%">
+                    <select id="audience" name="is_published">
+                        <option value=1>Public</option>
+                        <option value=0>Private</option>
+
+                    </select>
+                </div>
+
+
+
             </div>
         </div>
         <div class="flex-box">
@@ -38,7 +44,7 @@
                 <button class="cancel">Cancel</button>
             </div>
             <div>
-                <button class="submit">Create Post</button>
+                <button class="submit" type="submit">Create Post</button>
             </div>
         </div>
     </form>

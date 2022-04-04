@@ -27,7 +27,7 @@
         <h5>{{$post->like_count}}</h5>
       </center>
     </div>
-    <div>
+    <div class="flex-grow">
       <p class="show">
         {{$post->post_detail}}
       </p>

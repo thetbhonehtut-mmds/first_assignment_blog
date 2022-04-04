@@ -18,7 +18,7 @@ Route::get('/', [PostController::class,'index']);
 Route::resource('posts', PostController::class);
 Route::post('posts/{post}/react',[PostController::class,'handleReaction']);
 Route::put('posts/{post}/react',[PostController::class,'handleReaction']);
-
+Route::get('/react_test/{post}',[PostController::class,'testReaction']);
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

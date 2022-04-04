@@ -14,8 +14,6 @@ class PostResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'test' => 1,
-        ];
+        return parent::toArray($request);
     }
 }

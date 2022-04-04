@@ -8,15 +8,29 @@ button {
   font: inherit;
   border: none;
   padding: 1rem;
-  width: 7rem;
+  width: auto;
   min-width: 7rem;
   cursor: pointer;
   margin: 0rem 1rem 0rem 1rem;
 }
-
 button.header {
   height: 100%;
   background: none;
+}
+button.submit, button.cancel, button.create {
+  height: 50px;
+  border-radius: 5px;
+  color: white;
+  width: auto;
+}
+button.submit, button.create {
+  background-color: rgb(71, 71, 230);
+}
+button.cancel {
+  background-color: rgb(146, 146, 157);
+}
+button.create {
+  margin-bottom: 10px;
 }
 
 p {
@@ -36,33 +50,46 @@ p.show {
   margin-right: 50px;
 }
 
-button.submit,
-button.cancel {
-  height: 50px;
-  border-radius: 5px;
-  color: white;
-  width: auto;
-}
-
-button.submit {
-  background-color: rgb(71, 71, 230);
-}
-
-button.cancel {
-  background-color: rgb(146, 146, 157);
-}
-
 div.nav-title {
   height: auto;
   padding: 10px;
+  width: 20%;
 }
 div.flex-grow {
   flex-grow: 1;
+}
+div.config {
+  height: auto;
+  padding: 10px;
+  display: flex;
 }
 div.reaction-box {
   justify-content: center;
   align-items: center;
   vertical-align: middle;
+}
+div.post {
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+div.flex-box {
+  display: flex;
+  max-width: 100%;
+}
+div.nav-bar {
+  background-color: blanchedalmond;
+  margin-bottom: 10px;
+  width: 100%;
+  position: fixed;
+  height: 90px;
+  z-index: 9;
+}
+div.content {
+  position: absolute;
+  margin-top: 100px;
+  width: 100%;
 }
 
 a {
@@ -76,9 +103,8 @@ a:active {
   color: black;
 }
 
-.flex-box {
-  display: flex;
-  max-width: 100%;
+body {
+  margin: 0px !important;
 }
 
 input,
@@ -98,6 +124,10 @@ input[type=text],
 textarea {
   padding: 20px;
   font-size: large;
+}
+input[type=text].search,
+textarea.search {
+  width: 90%;
 }
 
 input::-moz-placeholder, textarea::-moz-placeholder {
